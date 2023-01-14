@@ -8,22 +8,14 @@ using Test
     file = joinpath(dirname(@__FILE__), "files", "cd_catalog.xml")
     xslt = joinpath(dirname(@__FILE__), "files", "cd_catalog.xsl")
 
-    xsltParseStylesheetFile(xslt)
+    test = xsltParseStylesheetFile(xslt)
+
+
+    @test isassigned(test)
     xmlParseFile(file)
 
     doc_xslt_apply(file, xslt, String[])
 end
 
-Ref(file)
-
-mktemp() do f, io
-    write(io, "test")
-    close(io)
-    println(f)
-    println(io)
-end
-
-touch("tmp.txt")
-io = open("tmp.txt")
-io
-close(io)
+test = Ref(file)
+isassigned(test)
