@@ -3,7 +3,7 @@
 
 Parse an XSLT file into a stylesheet.
 """
-function xsltParseStylesheetFile(filename::String)
+function xsltParseStylesheetFile(filename::S) where {S<:String}
     # returns an xsltStylesheetPtr
     ccall((:xsltParseStylesheetFile, libxslt), Xptr, (Cstring,), filename)
 end
