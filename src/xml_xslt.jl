@@ -1,5 +1,5 @@
 """
-    xml_xslt(x, xslt, params::Vector{String}= String[])
+    xml_xslt(x, xslt, params= nothing)
 
 Apply the stylesheet `xslt` to the XML `x` with the given `params`.
 
@@ -8,7 +8,8 @@ Apply the stylesheet `xslt` to the XML `x` with the given `params`.
 - `x`: can be a file path, a pointer returned by [`read_xml`](@ref), an EzXML.jl `Document`
 or a LightXML.jl `XMLDocument`.
 - `xslt`: can be a file path or an `xsltPtr` (output of [`read_stylesheet`](@ref)).
-- `params`: a vector of strings of the form `"param_name=param_value"
+- `params`: a dictionnary, tuple or Vector{Pair} of key-values for parameters. Can also be 
+directy a vector of strings of the form `["param1", "\"stringvalue1\"", "param2", "1"]`.
 
 Returns the result as a string.
 
@@ -29,12 +30,11 @@ res = xml_xslt(xml, xslt)
 write("cd_catalog.html", res)
 ```
 """
-function xml_xslt(x, xslt, params::Vector{String}=String[])
+function xml_xslt(x, xslt, params=nothing)
     # x can be a file path or an EzXML.jl Document or a LightXML.jl XMLDocument
     # In the latter two cases, we need to get the pointer to the xmlDocPtr
-    doc_xslt_apply(get_x(x), xslt, params)
+    doc_xslt_apply(get_x(x), xslt, parse_parameters(params))
 end
-
 
 """
     get_x(x)

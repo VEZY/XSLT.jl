@@ -1,5 +1,5 @@
 """
-    doc_xslt_apply(doc, xslt, params::Vector{String})
+    doc_xslt_apply(doc, xslt, params)
 
 Apply the stylesheet `xslt` to the XML `doc` with the given `params`.
 
@@ -7,6 +7,7 @@ Apply the stylesheet `xslt` to the XML `doc` with the given `params`.
 
 - `doc`: can be a file path or an EzXML.jl `Document` or a LightXML.jl `XMLDocument`.
 - `xslt`: can be a file path or an `xsltPtr` (output of [`read_stylesheet`](@ref)).
+- `params`: a vector of strings with key-values for parameters, e.g. `["param_name=param_value", "param_name2=param_value2"]`.
 
 # Example
 
@@ -24,13 +25,13 @@ res = doc_xslt_apply(xml, xslt)
 write("cd_catalog.html", res)
 ```
 """
-function doc_xslt_apply(file::S, xslt, params::Vector{String}) where {S<:AbstractString}
+function doc_xslt_apply(file::S, xslt, params) where {S<:AbstractString}
     xmlDocPtr = xmlParseFile(file)
     str = doc_xslt_apply(xmlDocPtr, xslt, params)
     return str
 end
 
-function doc_xslt_apply(xmlDocPtr::P, xslt, params::Vector{String}) where {P<:Ptr}
+function doc_xslt_apply(xmlDocPtr::P, xslt, params) where {P<:Ptr}
     xsltStylesheetPtr = xsltParseStylesheetFile(xslt)
     str = doc_xslt_apply(xmlDocPtr, xsltStylesheetPtr, params)
 
@@ -38,7 +39,7 @@ function doc_xslt_apply(xmlDocPtr::P, xslt, params::Vector{String}) where {P<:Pt
 end
 
 
-function doc_xslt_apply(xmlDocPtr::P1, xsltStylesheetPtr::P2, params::Vector{String}) where {P1<:Ptr{T1} where {T1},P2<:Ptr{T2} where {T2}}
+function doc_xslt_apply(xmlDocPtr::P1, xsltStylesheetPtr::P2, params) where {P1<:Ptr{T1} where {T1},P2<:Ptr{T2} where {T2}}
 
     # Applying the stylesheet:
     res = xsltApplyStylesheet(xsltStylesheetPtr, xmlDocPtr, params)

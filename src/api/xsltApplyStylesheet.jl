@@ -1,9 +1,9 @@
 """
-    xsltApplyStylesheet(xslt::Xptr, doc::Xptr, params::Vector{String})
+    xsltApplyStylesheet(xslt::Xptr, doc::Xptr, params<:AbstractString)
 
 Apply the stylesheet `xslt` to the document `doc` with the given `params`.
 """
-function xsltApplyStylesheet(xslt::Xptr, doc, params::Vector{String})
+function xsltApplyStylesheet(xslt::Xptr, doc, params)
     # returns an xmlDocPtr
-    ccall((:xsltApplyStylesheet, libxslt), Xptr, (Xptr, Xptr, Ref{Cstring}), xslt, doc, params)
+    ccall((:xsltApplyStylesheet, libxslt), Xptr, (Xptr, Xptr, Ptr{Ptr{Cchar}}), xslt, doc, params)
 end
