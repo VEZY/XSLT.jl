@@ -43,7 +43,7 @@ julia> xml_xslt(xml_file, xslt_file)
 julia> using XSLT
 
 julia> xml = read_xml(joinpath(dirname(pathof(XSLT)), "..", "test", "files", "cd_catalog.xml"))
-julia> xslt = read_xslt(joinpath(dirname(pathof(XSLT)), "..", "test", "files", "cd_catalog.xsl"))
+julia> xslt = read_stylesheet(joinpath(dirname(pathof(XSLT)), "..", "test", "files", "cd_catalog.xsl"))
 
 julia> xml_xslt(xml, xslt)
 ```
@@ -60,25 +60,12 @@ julia> xml_xslt(xml, xslt_file) |> parsehtml
 
 ### Using LigthXML
 
-
 ```julia
-julia> using XSLT, LigthXML
+julia> using XSLT, LightXML
 
 julia> xml = parse_file(xml_file)
 
 julia> xml_xslt(xml, xslt_file)
-```
-
-We can also import the xslt file and use it directly:
-
-```julia
-julia> using XSLT
-
-julia> xslt_file = joinpath(dirname(@__FILE__), "files", "cd_catalog.xsl")
-
-julia> xslt = read_stylesheet(xslt_file)
-
-julia> xml_xslt(xml_file, xslt)
 ```
 
 ## Similar projects
