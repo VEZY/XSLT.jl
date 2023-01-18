@@ -1,6 +1,6 @@
 module XSLT
 
-using XSLT_jll
+using XSLT_jll, XML2_jll
 
 # Interface to the C API:
 include("api/structs.jl")
