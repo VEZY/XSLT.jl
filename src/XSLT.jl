@@ -3,6 +3,7 @@ module XSLT
 using XSLT_jll, XML2_jll
 
 # Interface to the C API:
+include("api/error_handling.jl") # From EzXML.jl
 include("api/structs.jl")
 include("api/xml_parse.jl")
 include("api/stylesheet_parse.jl")

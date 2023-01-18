@@ -11,6 +11,10 @@ using LightXML
         include("test-xml_xslt.jl")
     end
 
+    @testset "Error handling" begin
+        include("test-errors.jl")
+    end
+
     @testset "parameters parsing" begin
         include("test-param_parsing.jl")
     end

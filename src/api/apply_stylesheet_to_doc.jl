@@ -32,6 +32,7 @@ function doc_xslt_apply(file::S, xslt, params) where {S<:AbstractString}
 end
 
 function doc_xslt_apply(xmlDocPtr::P, xslt, params) where {P<:Ptr}
+    @assert isfile(xslt) "File `xslt` doesn't exist or is not an XSL or XSLT stylesheet"
     xsltStylesheetPtr = xsltParseStylesheetFile(xslt)
     str = doc_xslt_apply(xmlDocPtr, xsltStylesheetPtr, params)
 

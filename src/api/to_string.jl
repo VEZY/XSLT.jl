@@ -13,7 +13,7 @@ function xsltSaveResultToString(xml::Xptr, xslt::Xptr)
     str = Ref{Cstring}()
     len = Ref{Cint}()
 
-    ccall((:xsltSaveResultToString, libxslt), Cstring, (Ref{Cstring}, Ref{Cint}, Xptr, Xptr), str, len, xml, xslt)
+    @check ccall((:xsltSaveResultToString, libxslt), Cstring, (Ref{Cstring}, Ref{Cint}, Xptr, Xptr), str, len, xml, xslt) != -1
 
     return str, len
 end
