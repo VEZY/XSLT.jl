@@ -43,6 +43,7 @@ Return `x` if it is a file path or a pointer (`Ptr`), or get the pointer to the 
 from `x` if `x` is an EzXML.jl `Document` or a LightXML.jl `XMLDocument`.
 """
 function get_x(x::S) where {S<:AbstractString}
+    x = normpath(x)
     @assert isfile(x) "`x` must be an XML document file path"
     # check that the document is an XML document
     return x
