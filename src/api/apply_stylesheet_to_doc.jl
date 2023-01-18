@@ -26,7 +26,7 @@ write("cd_catalog.html", res)
 ```
 """
 function doc_xslt_apply(file::S, xslt, params) where {S<:AbstractString}
-    xmlDocPtr = xmlParseFile(file)
+    xmlDocPtr = xmlReadFile(file)
     str = doc_xslt_apply(xmlDocPtr, xslt, params)
     return str
 end

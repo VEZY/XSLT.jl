@@ -20,5 +20,5 @@ xml = read_xml(file)
 ```
 """
 function read_xml(file)
-    return xmlParseFile(file)
+    return xmlReadFile(file)
 end

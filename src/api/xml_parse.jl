@@ -8,6 +8,16 @@ function xmlParseFile(filename::String)
     ccall((:xmlParseFile, libxslt), Xptr, (Cstring,), filename)
 end
 
+"""
+    xmlReadFile(filename::String; encoding="UTF-8", options=0)
+
+Read an XML file into a document.
+"""
+function xmlReadFile(filename::String; encoding="UTF-8", options=0)
+    # xmlParseFile takes a string as input and returns a pointer to a document (an xmlDocPtr)
+    ccall((:xmlReadFile, libxslt), Xptr, (Cstring, Cstring, Cint), filename, encoding, options)
+end
+
 
 """
     xmlFreeDoc(res::Xptr)
