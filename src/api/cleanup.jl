@@ -3,5 +3,5 @@ function xsltCleanupGlobals()
 end
 
 function xmlCleanupParser()
-    ccall((:xmlCleanupParser, libxslt), Cvoid, ())
+    ccall((:xmlCleanupParser, libxml2), Cvoid, ())
 end
